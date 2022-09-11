@@ -31,10 +31,15 @@
             </div>
           </nav>
 
+          @php($color = $note->props['color'])
+
           <div class="section">
             <div @class([
                 "notification",
-                "is-danger"
+                'has-background-info' => ($color === 'Blue'),
+                'has-background-success' => ($color === 'Green'),
+                'has-background-danger' => ($color === 'Red'),
+                'has-background-warning' => ($color === 'Yellow')
             ])
                 style="min-height: 300px !important;max-height: 340px !important;">
                 <p class="title">{{ $note->title }}</p>

@@ -2,6 +2,8 @@
 /*     Projects started: 1:33 PM 11 September, 2022
         -- This is being written 20:56 PM (same day)
 
+        Finished and published to GitHub
+            -- 21:35 PM (same time writing this)
 
  */
 
@@ -54,16 +56,13 @@ class NotesController extends Controller
         $color = $request->input('color');
         $content = $request->input('content');
         
-        $notes = Notes::create([
-            'title' => $title,
-            'content' => $content
-        ]);
+        $notes = Notes::create($request->all());
         
         $id = $notes->id;
 
         $notes->addColor($id, $color);
 
-        return redirect(route('notes.home'));
+        return redirect()->route('notes.home');
     }
 
     /**
@@ -97,6 +96,12 @@ class NotesController extends Controller
      */
     public function update(Request $request, Notes $note)
     {
+        $request->validate([
+            'title' =>' required',
+            'color' => 'required',
+            'content' => 'required'
+        ]);
+
         $title = $request->input('title');
         $color = $request->input('color');
         $content = $request->input('content');
@@ -110,7 +115,7 @@ class NotesController extends Controller
             'color' => $color
         ]);
 
-        return redirect(route('notes.home'));
+        return redirect()->route('notes.home');
     }
 
     /**
@@ -123,6 +128,6 @@ class NotesController extends Controller
     {
         $note->delete();
 
-        return redirect(route('notes.home'));
+        return redirect()->route('notes.home');
     }
 }

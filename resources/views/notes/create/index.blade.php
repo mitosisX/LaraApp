@@ -32,8 +32,11 @@
           <div class="field">
             <label class="label">Title</label>
             <div class="control">
-              <input class="input" name='title' type="text" placeholder="Enter title">
+              <input class="input" name='title' value="{{ old('title') }}" type="text" placeholder="Enter title">
             </div>
+            @error('title')
+              <p class="help is-danger">{{ $message }}</p>
+            @enderror
           </div>
           
           <div class="field">
@@ -52,8 +55,11 @@
           <div class="field">
             <label class="label">Content</label>
             <div class="control">
-              <textarea class="textarea" name='content' placeholder="Enter your notes here"></textarea>
+              <textarea class="textarea" name='content' placeholder="Enter your notes here">{{ old('content') }}</textarea>
             </div>
+            @error('content')
+              <p class="help is-danger">{{ $message }}</p>
+            @enderror
           </div>
           
           <div class="field is-grouped">

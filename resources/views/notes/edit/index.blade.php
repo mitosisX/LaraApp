@@ -10,7 +10,7 @@
     <section class="section">
         <nav class="navbar is-primary" role="navigation" aria-label="main navigation">
             <div class="navbar-brand">
-                <p class="title mx-2">ColorNote</p>
+                <p class="title mx-2">Notey</p>
               </a>
             </div>
           
@@ -39,6 +39,9 @@
                     placeholder="Enter title"
                     value="{{ $note->title }}">
             </div>
+            @error('title')
+              <p class="help is-danger">{{ $message }}</p>
+            @enderror
           </div>
 
           @php
@@ -61,7 +64,7 @@
             <div class="control">
               <div class="select">
                 <select name='color'>
-                    @foreach ($colors_to_use as $color)
+                    @foreach ($def_colors as $color)
                         <option 
                         @class([
                         'has-background-info' => ($color === 'Blue'),
@@ -72,6 +75,7 @@
                     @endforeach
                 </select>
               </div>
+              <p class="help is-danger">{{ old('color') }}</p>
             </div>
           </div>
           <div class="field">
@@ -81,6 +85,9 @@
                     name='content' 
                     placeholder="Enter your notes here">{{ $note->content }}</textarea>
             </div>
+            @error('content')
+              <p class="help is-danger">{{ $message }}</p>
+            @enderror
           </div>
           
           <div class="field is-grouped">

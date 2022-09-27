@@ -75,7 +75,9 @@
                     @endforeach
                 </select>
               </div>
-              <p class="help is-danger">{{ old('color') }}</p>
+              @error('title')
+                <p class="help is-danger">{{ $message }}</p>
+              @enderror
             </div>
           </div>
           <div class="field">

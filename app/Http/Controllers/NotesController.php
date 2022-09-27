@@ -9,9 +9,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Notes;
 use App\Models\Notes_Props;
+use Illuminate\Http\Request;
+use App\Http\Requests\NoteValidatorRequest;
 
 class NotesController extends Controller
 {
@@ -44,17 +45,13 @@ class NotesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(NoteValidatorRequest $request)
     {
-        $request->validate([
-            'title' => 'required',
-            'color' => 'required',
-            'content' => 'required'
-        ]);
+        $request->validated();
 
-        $title = $request->input('title');
-        $color = $request->input('color');
-        $content = $request->input('content');
+        $validatedData = $request->safe()->only(['color']);
+
+        $color = $validatedData['color'];
         
         $notes = Notes::create($request->all());
         
@@ -94,22 +91,15 @@ class NotesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Notes $note)
+    public function update(NoteValidatorRequest $request, Notes $note)
     {
-        $request->validate([
-            'title' =>' required',
-            'color' => 'required',
-            'content' => 'required'
-        ]);
+        $request->validated();
 
-        $title = $request->input('title');
-        $color = $request->input('color');
-        $content = $request->input('content');
+        $validatedData = $request->safe()->only(['color']);
+
+        $color = $validatedData['color'];
         
-        $note_update = $note->update([
-            'title' => $title,
-            'content' => $content
-        ]);
+        $note->update($request->all());
         
         Notes_Props::find($note->id)->update([
             'color' => $color

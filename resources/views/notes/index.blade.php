@@ -51,6 +51,7 @@
 
                     <form action="{{ route('notes.delete', ['note'=>$note->id]) }}" method="POST">
                         @csrf
+                        @method('DELETE')
                         <input type="submit"
                             class="button my-2 is-danger is-small is-outlined is-rounded"
                             value="delete">

@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('notes', function (Blueprint $table) {
             $table->increments('id');
-            $table->mediumText('title');
+            $table->mediumText('note_title');
             $table->string('content');
             $table->timestamps();
         });

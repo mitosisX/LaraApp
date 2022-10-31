@@ -99,7 +99,7 @@ class NotesController extends Controller
 
         $color = $validatedData['color'];
         
-        $note->update($request->all());
+        $note->update($request->validated()->only(['title', 'content']));
         
         Notes_Props::find($note->id)->update([
             'color' => $color
